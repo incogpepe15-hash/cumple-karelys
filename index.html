@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Una cuenta regresiva especial para el cumpleaños de Karelys."
+    />
+    <meta name="theme-color" content="#09050f" />
+    <title>Para Karelys · Cuenta regresiva</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2309050f'/%3E%3Cpath d='M32 50S11 38 11 23.5C11 12 26 8 32 19c6-11 21-7 21 4.5C53 38 32 50 32 50Z' fill='%23e8a0c7'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="ambient-glow ambient-glow--one" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow--two" aria-hidden="true"></div>
+
+    <div class="stars" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <main class="page-shell">
+      <section class="countdown-card" aria-labelledby="birthday-title">
+        <div class="card-shine" aria-hidden="true"></div>
+
+        <p class="eyebrow">✨ Algo especial está siendo preparado para ti...</p>
+
+        <header class="hero">
+          <h1 id="birthday-title">Karelys <span aria-label="corazón">♥</span></h1>
+          <div class="ornament" aria-hidden="true">
+            <i></i><b>✦</b><i></i>
+          </div>
+          <p class="birthday-intro">Tu cumpleaños es el</p>
+          <p class="birthday-date">24 de octubre</p>
+        </header>
+
+        <div
+          class="countdown"
+          role="timer"
+          aria-label="Tiempo restante para el cumpleaños de Karelys"
+          aria-live="off"
+        >
+          <div class="time-unit">
+            <strong id="days">00</strong>
+            <span>DÍAS</span>
+          </div>
+          <div class="time-unit">
+            <strong id="hours">00</strong>
+            <span>HORAS</span>
+          </div>
+          <div class="time-unit">
+            <strong id="minutes">00</strong>
+            <span>MIN</span>
+          </div>
+          <div class="time-unit">
+            <strong id="seconds">00</strong>
+            <span>SEG</span>
+          </div>
+        </div>
+
+        <div id="waiting-message" class="message-block">
+          <p class="message-lead">Mientras tanto...</p>
+          <p>solo puedo decirte que eres una persona muy especial.</p>
+          <span class="small-heart" aria-hidden="true">♥</span>
+        </div>
+
+        <div id="birthday-message" class="message-block birthday-message" hidden>
+          <p class="message-lead">🎂 Hoy es el día...</p>
+          <p>Tu sorpresa estará disponible muy pronto 💗</p>
+        </div>
+
+        <footer id="lock-message" class="lock-message">
+          <span aria-hidden="true">🔒</span>
+          <span>La sorpresa se desbloquea el 24 de octubre</span>
+        </footer>
+      </section>
+    </main>
+  </body>
+</html>
