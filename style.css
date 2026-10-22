@@ -262,8 +262,102 @@ body::before {
 }
 
 .birthday-message[hidden],
-.lock-message[hidden] {
+.lock-message[hidden],
+.surprise-access[hidden] {
   display: none;
+}
+
+.surprise-access {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 5vw, 2rem);
+  background: rgba(6, 3, 10, 0.8);
+  opacity: 0;
+  backdrop-filter: blur(12px);
+  transition: opacity 700ms ease;
+}
+
+.surprise-access.is-visible {
+  opacity: 1;
+}
+
+.surprise-access__panel {
+  position: relative;
+  width: min(100%, 560px);
+  overflow: hidden;
+  padding: clamp(2.2rem, 7vw, 3.8rem) clamp(1.25rem, 6vw, 3.4rem);
+  border: 1px solid rgba(240, 168, 207, 0.27);
+  border-radius: clamp(22px, 5vw, 32px);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(190, 98, 187, 0.2), transparent 52%),
+    rgba(20, 9, 28, 0.96);
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.68),
+    0 0 70px rgba(177, 88, 181, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  text-align: center;
+  transform: translateY(18px) scale(0.97);
+  transition: transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.surprise-access.is-visible .surprise-access__panel {
+  transform: translateY(0) scale(1);
+}
+
+.surprise-access__sparkle {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: var(--rose);
+  font-size: 1rem;
+  letter-spacing: 0.65em;
+  text-indent: 0.65em;
+  text-shadow: 0 0 18px rgba(240, 168, 207, 0.72);
+}
+
+.surprise-access__title {
+  margin: 0 0 clamp(1.4rem, 4vw, 2rem);
+  color: var(--rose-soft);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2rem, 7vw, 3.35rem);
+  font-weight: 600;
+  line-height: 1.08;
+  text-shadow: 0 5px 28px rgba(233, 146, 205, 0.2);
+}
+
+.surprise-access__button {
+  min-height: 52px;
+  padding: 0.85rem 1.55rem;
+  border: 1px solid rgba(255, 226, 243, 0.34);
+  border-radius: 999px;
+  color: #25102b;
+  background: linear-gradient(135deg, #ffd5ea, #eaa4d2 55%, #c893eb);
+  box-shadow:
+    0 12px 30px rgba(204, 105, 174, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  font: 500 clamp(0.92rem, 2.4vw, 1.02rem) / 1.2 "Montserrat", system-ui, sans-serif;
+  letter-spacing: 0.015em;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.surprise-access__button:hover {
+  box-shadow:
+    0 16px 36px rgba(204, 105, 174, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  filter: brightness(1.04);
+  transform: translateY(-2px);
+}
+
+.surprise-access__button:active {
+  transform: translateY(0);
+}
+
+.surprise-access__button:focus-visible {
+  outline: 2px solid #fff3fb;
+  outline-offset: 4px;
 }
 
 .lock-message {
@@ -398,5 +492,11 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   .stars span {
     animation: none;
+  }
+
+  .surprise-access,
+  .surprise-access__panel,
+  .surprise-access__button {
+    transition: none;
   }
 }
