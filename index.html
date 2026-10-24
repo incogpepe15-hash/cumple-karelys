@@ -1,102 +1,1364 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Una cuenta regresiva especial para el cumpleaños de Karelys."
-    />
-    <meta name="theme-color" content="#09050f" />
-    <title>Para Karelys · Cuenta regresiva</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2309050f'/%3E%3Cpath d='M32 50S11 38 11 23.5C11 12 26 8 32 19c6-11 21-7 21 4.5C53 38 32 50 32 50Z' fill='%23e8a0c7'/%3E%3C/svg%3E"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
-  </head>
-  <body>
-    <div class="ambient-glow ambient-glow--one" aria-hidden="true"></div>
-    <div class="ambient-glow ambient-glow--two" aria-hidden="true"></div>
 
-    <div class="stars" aria-hidden="true">
-      <span></span><span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span><span></span>
-    </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <main class="page-shell">
-      <section class="countdown-card" aria-labelledby="birthday-title">
-        <div class="card-shine" aria-hidden="true"></div>
+    <title>Para Karelys 💗</title>
 
-        <p class="eyebrow">✨ Algo especial está siendo preparado para ti...</p>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-        <header class="hero">
-          <h1 id="birthday-title">Karelys <span aria-label="corazón">♥</span></h1>
-          <div class="ornament" aria-hidden="true">
-            <i></i><b>✦</b><i></i>
-          </div>
-          <p class="birthday-intro">Tu cumpleaños es el</p>
-          <p class="birthday-date">24 de octubre</p>
-        </header>
+<body>
 
-        <div
-          class="countdown"
-          role="timer"
-          aria-label="Tiempo restante para el cumpleaños de Karelys"
-          aria-live="off"
-        >
-          <div class="time-unit">
-            <strong id="days">00</strong>
-            <span>DÍAS</span>
-          </div>
-          <div class="time-unit">
-            <strong id="hours">00</strong>
-            <span>HORAS</span>
-          </div>
-          <div class="time-unit">
-            <strong id="minutes">00</strong>
-            <span>MIN</span>
-          </div>
-          <div class="time-unit">
-            <strong id="seconds">00</strong>
-            <span>SEG</span>
-          </div>
-        </div>
+    <!-- =========================
+         PORTADA
+    ========================== -->
+    <main class="portada">
 
-        <aside class="clue" aria-label="Una pequeña pista">
-          <strong class="clue-title">👀 Una pequeña pista...</strong>
-          <em>Todo esto empezó en un lugar donde ninguno de los dos esperaba conocer al otro... 🎮</em>
-          <strong class="clue-ending">Continuará...</strong>
-        </aside>
+        <div class="estrellas"></div>
 
-        <div id="waiting-message" class="message-block">
-          <p class="message-lead">Mientras tanto...</p>
-          <p>solo puedo decirte que eres una persona muy especial.</p>
-          <span class="small-heart" aria-hidden="true">♥</span>
-        </div>
+        <section class="portada-contenido">
 
-        <div id="birthday-message" class="message-block birthday-message" hidden>
-          <p class="message-lead">🎂 Hoy es el día...</p>
-          <p>Tu sorpresa estará disponible muy pronto 💗</p>
-        </div>
+            <p class="mini-texto">
+                ✨ Algo especial está siendo preparado para ti...
+            </p>
 
-        <div id="surprise-access" class="surprise-access" hidden aria-live="polite"></div>
+            <h1>
+                Karelys <span>♥</span>
+            </h1>
 
-        <footer id="lock-message" class="lock-message">
-          <span aria-hidden="true">🔒</span>
-          <span>La sorpresa se desbloquea el 24 de octubre</span>
-        </footer>
-      </section>
+            <p class="subtitulo">
+                Tu cumpleaños es el
+            </p>
+
+            <h2>
+                24 de octubre
+            </h2>
+
+
+            <!-- CUENTA REGRESIVA -->
+            <div class="contador">
+
+                <div class="tiempo">
+                    <span id="dias">00</span>
+                    <small>Días</small>
+                </div>
+
+                <div class="tiempo">
+                    <span id="horas">00</span>
+                    <small>Horas</small>
+                </div>
+
+                <div class="tiempo">
+                    <span id="minutos">00</span>
+                    <small>Min</small>
+                </div>
+
+                <div class="tiempo">
+                    <span id="segundos">00</span>
+                    <small>Seg</small>
+                </div>
+
+            </div>
+
+
+            <div class="mensaje-portada">
+
+                <p>Mientras tanto...</p>
+
+                <p>
+                    solo puedo decirte que eres una persona
+                    <strong>muy especial.</strong>
+                </p>
+
+                <span class="corazon">♥</span>
+
+            </div>
+
+
+            <button id="botonEntrar">
+                Entrar
+                <span>→</span>
+            </button>
+
+        </section>
+
     </main>
-  </body>
+
+    <!-- =========================
+     BIENVENIDA DE CUMPLEAÑOS
+========================== -->
+
+    <section class="bienvenida" id="bienvenida">
+
+        <div class="bienvenida-contenido">
+
+            <span class="detalle">✦ 24 DE OCTUBRE ✦</span>
+
+            <h2>¡Feliz cumpleaños,</h2>
+            <h3>Karelys! 🎂</h3>
+
+            <div class="linea"></div>
+
+            <p class="intro">
+                Hoy es un día especial para una persona
+                bastante particular...
+            </p>
+
+            <div class="cualidades">
+
+                <span>Creativa 💡</span>
+                <span>Trabajadora 💪</span>
+                <span>Estudiosa 📚</span>
+                <span>Emprendedora 🧁</span>
+
+            </div>
+
+            <p class="mente-pollo">
+                y con aproximadamente
+                <strong>3 MB de memoria RAM. 🐔</strong>
+            </p>
+
+            <p class="texto-final">
+                Así que preparé algo para recordarte algunas
+                de las razones por las que eres imposible de olvidar.
+            </p>
+
+            <button id="comenzarHistoria">
+                Comenzar nuestra historia
+                <span>→</span>
+            </button>
+
+        </div>
+
+    </section>
+    <!-- =========================
+     CAPÍTULO 01 - FREE FIRE
+========================== -->
+
+    <section class="capitulo capitulo-freefire" id="capituloFreeFire">
+
+        <div class="capitulo-overlay"></div>
+
+        <div class="capitulo-contenido">
+
+            <span class="numero-capitulo">
+                CAPÍTULO 01
+            </span>
+
+            <span class="icono-capitulo">🎮</span>
+
+            <h2>Todo empezó en</h2>
+            <h3>Free Fire</h3>
+
+            <div class="linea-capitulo"></div>
+
+            <p class="texto-capitulo">
+                Entre partidas, disparos y probablemente
+                alguna manqueada 😂, dos personas que ni se
+                conocían terminaron coincidiendo.
+            </p>
+
+            <div class="frase-capitulo">
+                <span>✦</span>
+
+                <p>
+                    Quién iba a pensar que todo esto
+                    empezaría en un juego...
+                </p>
+
+                <span>✦</span>
+            </div>
+
+            <p class="fecha-capitulo">
+                FREE FIRE • 2025
+            </p>
+
+            <button class="boton-continuar" id="continuarFreeFire">
+                Continuar
+                <span>→</span>
+            </button>
+
+        </div>
+
+    </section>
+    <!-- =========================
+     CAPÍTULO 02 - WHATSAPP
+========================== -->
+
+    <section class="capitulo-whatsapp" id="capituloWhatsApp">
+
+        <div class="whatsapp-contenido">
+
+            <span class="numero-capitulo whatsapp-numero">
+                CAPÍTULO 02
+            </span>
+
+            <span class="icono-whatsapp">💬</span>
+
+            <h2>El primer</h2>
+            <h3>WhatsApp</h3>
+
+            <p class="fecha-whatsapp">
+                13 DE DICIEMBRE DE 2025
+            </p>
+
+            <p class="intro-whatsapp">
+                Ese día empezamos a hablar por WhatsApp.
+                Una conversación cualquiera...
+            </p>
+
+            <!-- TELÉFONO -->
+            <div class="telefono">
+
+                <div class="telefono-barra">
+
+                    <div class="avatar-k">
+                        K
+                    </div>
+
+                    <div>
+                        <strong>Karelys</strong>
+                        <small>en línea</small>
+                    </div>
+
+                    <span class="telefono-puntos">•••</span>
+
+                </div>
+
+                <div class="chat">
+
+                    <div class="mensaje mensaje-karelys">
+                        <span class="nombre-chat">Karelys</span>
+                        Holaaa 👋
+                        <small>9:12 p. m.</small>
+                    </div>
+
+                    <div class="mensaje mensaje-marcos">
+                        Holaaa
+                        <small>9:13 p. m. ✓✓</small>
+                    </div>
+
+                    <div class="mensaje mensaje-karelys">
+                        <span class="nombre-chat">Karelys</span>
+                        ¿Jugamos? 👀
+                        <small>9:13 p. m.</small>
+                    </div>
+
+                    <div class="mensaje mensaje-marcos">
+                        Sii, vamos 😂
+                        <small>9:14 p. m. ✓✓</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p class="reflexion-whatsapp">
+                Una conversación cualquiera que terminó
+                convirtiéndose en una amistad que ninguno
+                de los dos esperaba. 💗
+            </p>
+
+            <button class="boton-whatsapp" id="continuarWhatsApp">
+                Siguiente recuerdo
+                <span>→</span>
+            </button>
+
+        </div>
+
+    </section>
+    <!-- =========================
+     CAPÍTULO 03 - EL CAPIBARA
+========================== -->
+
+    <section class="capitulo-capibara" id="capituloCapibara">
+
+        <div class="capibara-contenido">
+
+            <span class="numero-capitulo capibara-numero">
+                CAPÍTULO 03
+            </span>
+
+            <span class="capibara-icono">🦫</span>
+
+            <h2>El famoso</h2>
+            <h3>capibara</h3>
+
+            <p class="capibara-intro">
+                Estabas haciendo live en TikTok y de la nada me dijiste...
+            </p>
+
+
+            <!-- LIVE -->
+            <div class="tiktok-live">
+
+                <div class="live-superior">
+
+                    <div class="live-avatar">K</div>
+
+                    <div class="live-info">
+                        <strong>Karelys 💕</strong>
+                        <small>🔴 LIVE</small>
+                    </div>
+
+                    <span class="live-personas">👤 1.2K</span>
+
+                </div>
+
+
+                <div class="live-centro">
+
+                    <div class="live-corazones">
+                        💗
+                        <span>💜</span>
+                        <span>💕</span>
+                    </div>
+
+                    <span class="live-emoji">🤭</span>
+
+                    <p>Karelys transmitiendo...</p>
+
+                </div>
+
+
+                <div class="live-chat">
+
+                    <p>
+                        <strong>usuario123</strong>
+                        holaaaa 😂
+                    </p>
+
+                    <p>
+                        <strong>dan_ff</strong>
+                        manda capibara 🦫
+                    </p>
+
+                    <p>
+                        <strong>marcos</strong>
+                        👀
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MENSAJE DE KARELYS -->
+
+            <div class="propuesta-capibara">
+
+                <span class="nombre-karelys">
+                    Karelys 💕
+                </span>
+
+                <p>
+                    “Marcos, si me donas un capibara 🦫
+                    te muestro cómo va mi pancita
+                    con el embarazo.”
+                </p>
+
+            </div>
+
+
+            <p class="decision-capibara">
+                Y por supuesto...
+                <strong>no podía dejar pasar semejante oportunidad.</strong> 😂
+            </p>
+
+
+            <!-- REGALO -->
+
+            <div class="regalo-capibara" id="regaloCapibara">
+
+                <span class="animal">🦫</span>
+
+                <div>
+                    <small>REGALO EXCLUSIVO</small>
+                    <strong>Capibara</strong>
+                </div>
+
+            </div>
+
+
+            <button id="enviarCapibara">
+                🦫 Enviar capibara
+            </button>
+
+
+            <!-- RESULTADO OCULTO -->
+
+            <div class="investigacion" id="investigacion">
+
+                <p class="enviado">
+                    🎁 ¡Capibara enviado!
+                </p>
+
+                <p class="desbloqueando">
+                    Desbloqueando evidencia exclusiva
+                    del supuesto bebé...
+                </p>
+
+
+                <div class="barra-carga">
+
+                    <div class="progreso-capibara" id="progresoCapibara">
+                    </div>
+
+                </div>
+
+                <span class="porcentaje-capibara" id="porcentajeCapibara">
+                    0%
+                </span>
+
+
+                <div class="resultado-investigacion" id="resultadoInvestigacion">
+
+                    <span class="resultado-titulo">
+                        🔎 RESULTADO DE LA INVESTIGACIÓN
+                    </span>
+
+                    <div class="resultado-fila">
+                        <span>👶 Bebés encontrados</span>
+                        <strong>0</strong>
+                    </div>
+
+                    <div class="resultado-fila">
+                        <span>🤰 Embarazos reales</span>
+                        <strong>0</strong>
+                    </div>
+
+                    <div class="resultado-fila">
+                        <span>🦫 Capibaras perdidos</span>
+                        <strong>1</strong>
+                    </div>
+
+                    <div class="resultado-fila">
+                        <span>🤡 Marcos estafado</span>
+                        <strong>1</strong>
+                    </div>
+
+                    <p class="ahijado">
+                        A día de hoy sigo esperando
+                        conocer a mi ahijado. 😂
+                    </p>
+
+                    <button id="continuarCapibara">
+                        Continuar
+                        <span>→</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- =========================
+     CAPÍTULO 04 - TEMU
+========================== -->
+
+    <section class="capitulo-temu" id="capituloTemu">
+
+        <div class="temu-contenido">
+
+            <span class="numero-capitulo temu-numero">
+                CAPÍTULO 04
+            </span>
+
+            <span class="temu-icono">💼</span>
+
+            <h2>Los negocios millonarios de</h2>
+            <h3>Karelys™</h3>
+
+            <p class="temu-subtitulo">
+                Una historia de ambición, perseverancia...
+                y cero dólares de ganancias.
+            </p>
+
+
+            <!-- PANTALLA TEMU -->
+            <div class="temu-app">
+
+                <div class="temu-header">
+                    <span class="temu-logo">TEMU</span>
+                    <span>🎁</span>
+                </div>
+
+                <p class="temu-premio">
+                    Tu recompensa está casi lista
+                </p>
+
+                <strong class="temu-dinero">
+                    $100
+                </strong>
+
+                <div class="barra-temu">
+                    <div class="progreso-temu" id="progresoTemu">
+                    </div>
+                </div>
+
+                <span class="porcentaje-temu" id="porcentajeTemu">
+                    99.90%
+                </span>
+
+                <div class="mensaje-temu" id="mensajeTemu">
+                    🎉 ¡Felicidades! Solo te falta
+                    <strong>UNA persona más.</strong>
+                </div>
+
+            </div>
+
+
+            <!-- CONVERSACIÓN -->
+            <div class="conversacion-temu">
+
+                <div class="burbuja-temu karelys-temu">
+                    <span>Karelys</span>
+                    Marcos crea otra cuenta 😭
+                </div>
+
+                <div class="burbuja-temu marcos-temu">
+                    <span>Marcos</span>
+                    Pero si ya hice como 37 💀
+                </div>
+
+                <div class="burbuja-temu karelys-temu">
+                    <span>Karelys</span>
+                    UNA MÁS, PORFA 😭
+                </div>
+
+            </div>
+
+
+            <button id="crearCuentaTemu">
+                💀 Crear otra cuenta
+            </button>
+
+            <p class="intentos-temu">
+                Cuentas creadas en esta investigación:
+                <strong id="contadorCuentas">0</strong>
+            </p>
+
+
+            <!-- BALANCE FINAL -->
+            <div class="balance-temu" id="balanceTemu">
+
+                <span class="balance-titulo">
+                    📊 BALANCE FINANCIERO DE KARELYS
+                </span>
+
+                <div class="balance-fila">
+                    <span>📱 Cuentas creadas</span>
+                    <strong>Demasiadas</strong>
+                </div>
+
+                <div class="balance-fila">
+                    <span>⏳ Tiempo perdido</span>
+                    <strong>Incalculable</strong>
+                </div>
+
+                <div class="balance-fila">
+                    <span>✨ Esperanza de Karelys</span>
+                    <strong>100%</strong>
+                </div>
+
+                <div class="balance-fila">
+                    <span>💵 Dinero recibido</span>
+                    <strong class="cero-dolares">$0.00</strong>
+                </div>
+
+                <p class="temu-final">
+                    Y lo peor es que si mañana aparece otra aplicación
+                    prometiendo dinero...
+                    <br><br>
+                    <strong>sé perfectamente a quién vas a mandar a descargarla. 😂</strong>
+                </p>
+
+                <button id="continuarTemu">
+                    Continuar con el documental
+                    <span>→</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- =========================
+     CAPÍTULO 05 - IMITACIONES
+========================== -->
+
+    <section class="capitulo-imitaciones" id="capituloImitaciones">
+
+        <div class="imitaciones-contenido">
+
+            <span class="numero-capitulo imitaciones-numero">
+                CAPÍTULO 05
+            </span>
+
+            <span class="microfono">🎙️</span>
+
+            <h2>Talentos</h2>
+            <h3>cuestionables</h3>
+
+            <p class="imitaciones-intro">
+                Karelys tiene muchas cualidades...
+            </p>
+
+            <p class="imitaciones-remate">
+                imitar personajes
+                <strong>no es una de ellas.</strong> 💀
+            </p>
+
+
+            <!-- TARJETA BOB ESPONJA -->
+            <div class="tarjeta-imitacion">
+
+                <div class="personaje-imitacion">
+                    🧽
+                </div>
+
+                <div class="datos-imitacion">
+
+                    <span>PERSONAJE</span>
+
+                    <h4>Bob Esponja</h4>
+
+                    <div class="evaluacion">
+                        <p>
+                            🎙️ Imitadora:
+                            <strong>Karelys</strong>
+                        </p>
+
+                        <p>
+                            ⭐ Calificación:
+                            <strong>2/10</strong>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="critica-marcos">
+
+                <span>🎧 CRÍTICA PROFESIONAL DE MARCOS</span>
+
+                <p>
+                    “Todavía sigo intentando descubrir
+                    qué personaje estabas imitando.”
+                </p>
+
+                <small>
+                    El segundo punto fue por participar. 😂
+                </small>
+
+            </div>
+
+
+            <p class="recuerdo-imitaciones">
+                Y aun así nos poníamos a mandar personajes
+                para que el otro intentara imitarlos...
+                <br>
+                <strong>claramente el talento nunca fue requisito.</strong>
+            </p>
+
+
+            <button id="continuarImitaciones">
+                Pero hablando de talentos de verdad...
+                <span>→</span>
+            </button>
+
+        </div>
+
+    </section>
+    <!-- =========================
+     CAPÍTULO 06 - FUERA DE BROMAS
+========================== -->
+
+    <section class="capitulo-admiro" id="capituloAdmiro">
+
+        <div class="admiro-contenido">
+
+            <span class="numero-capitulo admiro-numero">
+                CAPÍTULO 06
+            </span>
+
+            <span class="admiro-corazon">♡</span>
+
+            <h2>Ahora sí...</h2>
+            <h3>fuera de bromas</h3>
+
+            <div class="linea-admiro"></div>
+
+            <p class="admiro-intro">
+                Después de molestarte por tus imitaciones,
+                Temu, el capibara y tu supuesto embarazo...
+            </p>
+
+            <p class="admiro-importante">
+                hay cosas de ti que
+                <strong>realmente admiro.</strong>
+            </p>
+
+
+            <div class="cualidades-reales">
+
+                <article class="cualidad-real">
+                    <span class="cualidad-icono">💡</span>
+
+                    <div>
+                        <h4>Tu creatividad</h4>
+
+                        <p>
+                            Siempre tienes alguna idea nueva en la cabeza.
+                            A veces medio loca 😂, pero nunca te faltan
+                            ganas de intentar cosas diferentes.
+                        </p>
+                    </div>
+                </article>
+
+
+                <article class="cualidad-real">
+                    <span class="cualidad-icono">🧁</span>
+
+                    <div>
+                        <h4>Tu lado emprendedor</h4>
+
+                        <p>
+                            Me gusta verte buscando maneras de salir adelante,
+                            creando cosas y vendiendo tus postres.
+                            No todo el mundo tiene esa iniciativa.
+                        </p>
+                    </div>
+                </article>
+
+
+                <article class="cualidad-real">
+                    <span class="cualidad-icono">📚</span>
+
+                    <div>
+                        <h4>Lo estudiosa que eres</h4>
+
+                        <p>
+                            Entre todas tus locuras también eres una persona
+                            que se esfuerza por estudiar y seguir avanzando.
+                        </p>
+                    </div>
+                </article>
+
+
+                <article class="cualidad-real">
+                    <span class="cualidad-icono">💪</span>
+
+                    <div>
+                        <h4>Lo trabajadora que eres</h4>
+
+                        <p>
+                            Cuando quieres conseguir algo buscas la manera,
+                            insistes y sigues intentando.
+                            Eso es algo que valoro bastante de ti.
+                        </p>
+                    </div>
+                </article>
+
+            </div>
+
+
+            <div class="mensaje-admiro">
+
+                <span>✦</span>
+
+                <p>
+                    Entre tanta broma, también quería que supieras
+                    que sí me doy cuenta de todo el esfuerzo que haces.
+                </p>
+
+                <span>✦</span>
+
+            </div>
+
+
+            <p class="remate-admiro">
+                Aunque bueno...
+                <br>
+                <strong>tampoco te emociones demasiado. 😂</strong>
+            </p>
+
+
+            <button id="continuarAdmiro">
+                Todavía tengo pruebas en tu contra
+                <span>→</span>
+            </button>
+
+        </div>
+
+    </section>
+    <!-- =========================
+     CAPÍTULO 07 - MENTE DE POLLO
+========================== -->
+
+    <section class="capitulo-pollo" id="capituloPollo">
+
+        <div class="pollo-contenido">
+
+            <span class="numero-capitulo pollo-numero">
+                CAPÍTULO 07
+            </span>
+
+            <span class="pollo-icono">🐔</span>
+
+            <h2>El misterioso caso de</h2>
+            <h3>la mente de pollo</h3>
+
+            <p class="pollo-intro">
+                Durante meses he observado un fenómeno
+                que la ciencia todavía no logra explicar...
+            </p>
+
+            <!-- AUDIO -->
+            <div class="audio-karelys">
+
+                <div class="audio-avatar">K</div>
+
+                <button class="play-audio" id="playAudioPollo">
+                    ▶
+                </button>
+
+                <div class="audio-centro">
+
+                    <div class="onda-audio">
+                        <i></i><i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i>
+                    </div>
+
+                    <small id="tiempoAudio">0:00</small>
+
+                </div>
+
+                <span class="microfono-audio">🎙️</span>
+
+            </div>
+
+
+            <!-- TRANSCRIPCIÓN -->
+            <div class="transcripcion-pollo" id="transcripcionPollo">
+
+                <span>🎧 TRANSCRIPCIÓN DEL AUDIO</span>
+
+                <p id="textoAudioPollo">
+                    Pulsa reproducir para analizar la evidencia...
+                </p>
+
+            </div>
+
+
+            <!-- ESCÁNER -->
+            <div class="scanner-pollo" id="scannerPollo">
+
+                <div class="scanner-cabeza">
+                    <span>🧠 ANALIZANDO MEMORIA...</span>
+                    <strong id="scannerPorcentaje">0%</strong>
+                </div>
+
+                <div class="barra-scanner">
+                    <div class="progreso-scanner" id="progresoScanner">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- DIAGNÓSTICO -->
+            <div class="diagnostico-pollo" id="diagnosticoPollo">
+
+                <span class="diagnostico-titulo">
+                    🧪 DIAGNÓSTICO OFICIAL
+                </span>
+
+                <div class="ram-pollo">
+                    <span>🐔</span>
+
+                    <div>
+                        <small>MEMORIA DISPONIBLE</small>
+                        <strong>3 MB RAM</strong>
+                    </div>
+                </div>
+
+                <div class="dato-pollo">
+                    <span>🗣️ Inicia una historia</span>
+                    <strong>✓</strong>
+                </div>
+
+                <div class="dato-pollo">
+                    <span>🎙️ Manda un audio</span>
+                    <strong>✓</strong>
+                </div>
+
+                <div class="dato-pollo">
+                    <span>🧠 Recuerda qué estaba diciendo</span>
+                    <strong class="error-pollo">ERROR</strong>
+                </div>
+
+                <div class="dato-pollo">
+                    <span>🐔 Memoria funcional</span>
+                    <strong>3 MB</strong>
+                </div>
+
+
+                <div class="conclusion-pollo">
+
+                    <span>CONCLUSIÓN</span>
+
+                    <p>
+                        Karelys comienza el audio con una idea...
+                        <br><br>
+                        y termina preguntándose
+                        <strong>qué estaba contando. 😂</strong>
+                    </p>
+
+                </div>
+
+
+                <button id="continuarPollo">
+                    Siguiente expediente
+                    <span>→</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- =========================
+     CAPÍTULO 08 - EL HEREDERO
+========================== -->
+
+    <section class="capitulo-perrito" id="capituloPerrito">
+
+        <div class="perrito-contenido">
+
+            <span class="numero-capitulo perrito-numero">
+                CAPÍTULO 08
+            </span>
+
+            <span class="perrito-icono">🐶</span>
+
+            <h2>Finalmente...</h2>
+            <h3>fue mamá</h3>
+
+            <p class="perrito-intro">
+                Después del incidente del capibara,
+                el supuesto embarazo y meses esperando
+                conocer a mi ahijado...
+            </p>
+
+            <div class="confirmacion-bebe">
+                <span>🚨 ÚLTIMA HORA</span>
+
+                <p>
+                    Podemos confirmar oficialmente que
+                    <strong>Karelys finalmente sí tuvo un hijo.</strong>
+                </p>
+            </div>
+
+
+            <!-- EL HEREDERO -->
+            <div class="heredero-card">
+
+                <span class="corona-perrito">♛</span>
+
+                <div class="foto-perrito">
+                    🐶
+                </div>
+
+                <span class="titulo-heredero">
+                    EL HEREDERO
+                </span>
+
+                <h4>El hijo de Karelys</h4>
+
+                <p>
+                    Consentido desde el primer día.
+                </p>
+
+            </div>
+
+
+            <!-- EXPEDIENTE -->
+            <div class="expediente-madre">
+
+                <span class="expediente-titulo">
+                    📋 EXPEDIENTE DE MATERNIDAD
+                </span>
+
+                <div class="dato-madre">
+                    <span>👩 Madre</span>
+                    <strong>Karelys</strong>
+                </div>
+
+                <div class="dato-madre">
+                    <span>🐶 Hijo</span>
+                    <strong>El heredero</strong>
+                </div>
+
+                <div class="dato-madre">
+                    <span>💕 Nivel de consentimiento</span>
+                    <strong>1000%</strong>
+                </div>
+
+                <div class="dato-madre">
+                    <span>📏 Disciplina</span>
+                    <strong class="disciplina">
+                        No encontrada
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <!-- SIMULADOR -->
+            <div class="simulador-madre">
+
+                <span class="simulador-titulo">
+                    🧪 SIMULACIÓN DE UN DÍA NORMAL
+                </span>
+
+                <div class="situacion-perrito">
+                    <span class="perrito-pequeno">🐶</span>
+
+                    <p>
+                        El niño acaba de hacer algo que
+                        definitivamente no debía hacer...
+                    </p>
+                </div>
+
+                <button id="verReaccionKarelys">
+                    Ver reacción de Karelys
+                    <span>→</span>
+                </button>
+
+
+                <div class="reaccion-karelys" id="reaccionKarelys">
+
+                    <span class="reaccion-avatar">K</span>
+
+                    <div>
+                        <small>Karelys</small>
+
+                        <p>
+                            “Awww mi bebé 🥺❤️”
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- VEREDICTO -->
+            <div class="veredicto-perrito" id="veredictoPerrito">
+
+                <span class="veredicto-titulo">
+                    ⚖️ VEREDICTO FINAL
+                </span>
+
+                <p>
+                    Tras analizar todas las pruebas,
+                    hemos determinado que...
+                </p>
+
+                <div class="veredicto-grande">
+                    El perro no está malcriado.
+                    <strong>La mamá es el problema. 😂</strong>
+                </div>
+
+                <small>
+                    Caso cerrado.
+                </small>
+
+                <button id="continuarPerrito">
+                    Continuar
+                    <span>→</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- =========================
+     CAPÍTULO 09 - SOLO ES KARELYS
+========================== -->
+
+    <section class="capitulo-karelys" id="capituloKarelys">
+
+        <div class="karelys-contenido">
+
+            <span class="numero-capitulo karelys-numero">
+                CAPÍTULO 09
+            </span>
+
+            <span class="karelys-corazon">♡</span>
+
+            <h2>En fin...</h2>
+            <h3>solo es Karelys</h3>
+
+            <p class="karelys-intro">
+                Después de toda esta investigación,
+                creo que ya tenemos suficiente evidencia
+                para describirte correctamente.
+            </p>
+
+
+            <!-- PALABRAS -->
+            <div class="universo-karelys">
+
+                <span>Creativa 💡</span>
+                <span>Trabajadora 💪</span>
+                <span>Chismosa 👀</span>
+                <span>Estudiosa 📚</span>
+                <span>Emprendedora 🧁</span>
+                <span>Un poquito vaga 😂</span>
+                <span>Mente de pollo 🐔</span>
+                <span>Buena amiga 🤍</span>
+                <span>Loca de las ideas ✨</span>
+                <span>Mamá consentidora 🐶</span>
+
+            </div>
+
+
+            <!-- TEXTO CENTRAL -->
+            <div class="esencia-karelys">
+
+                <p>
+                    Podría seguir molestándote por Temu,
+                    por tus audios, por tus imitaciones,
+                    por el capibara...
+                </p>
+
+                <p>
+                    pero creo que justamente todas esas
+                    pequeñas cosas son las que hacen que
+                    hablar contigo nunca sea aburrido.
+                </p>
+
+            </div>
+
+
+            <div class="frase-karelys">
+
+                <span>✦</span>
+
+                <p>
+                    Tienes una forma muy tuya de ser.
+                    <strong>Y eso está bastante chévere.</strong>
+                </p>
+
+                <span>✦</span>
+
+            </div>
+
+
+            <!-- PEQUEÑO TOQUE 😂 -->
+            <p class="advertencia-karelys">
+                Aunque lo de los 3 MB de RAM
+                sigue siendo preocupante. 🐔
+            </p>
+
+
+            <!-- TRANSICIÓN A CARTA -->
+            <div class="antes-carta">
+
+                <span>Pero bueno...</span>
+
+                <p>
+                    ya que hoy es tu cumpleaños,
+                    supongo que también debería decirte
+                    algo bonito.
+                </p>
+
+            </div>
+
+
+            <button id="abrirCarta">
+                💌 Abrir carta
+            </button>
+
+        </div>
+
+    </section>
+    <!-- =========================
+     FINAL - CARTA PARA KARELYS
+========================== -->
+
+    <section class="capitulo-carta" id="capituloCarta">
+
+        <div class="carta-contenido">
+
+            <span class="carta-fecha">
+                24 DE OCTUBRE
+            </span>
+
+            <h2>Una última cosa...</h2>
+
+            <p class="carta-indicacion">
+                Después de todo este documental sobre tu vida 😂,
+                creo que te ganaste algo bonito.
+            </p>
+
+
+            <!-- SOBRE -->
+            <div class="sobre" id="sobre">
+
+                <div class="sobre-atras"></div>
+
+                <div class="papel-carta" id="papelCarta">
+
+                    <span class="carta-mini-corazon">♡</span>
+
+                    <h3>Para Karelys</h3>
+
+                    <div class="carta-linea"></div>
+
+                    <div class="texto-carta">
+
+                        <p>
+                            Feliz cumpleaños, Karelys. 🤍
+                        </p>
+
+                        <p>
+                            Espero que este nuevo año de tu vida venga
+                            lleno de cosas buenas, nuevas experiencias
+                            y muchas razones para sentirte orgullosa
+                            de todo lo que vas consiguiendo.
+                        </p>
+
+                        <p>
+                            Espero también que puedas cumplir muchas
+                            de esas ideas que aparecen de la nada en
+                            esa mente loquísima que tienes.
+                        </p>
+
+                        <p>
+                            Porque entre todas las bromas, sí hay algo
+                            que admiro bastante de ti:
+                            <strong>
+                                eres creativa, trabajadora y siempre
+                                estás buscando cómo salir adelante.
+                            </strong>
+                        </p>
+
+                        <p>
+                            Gracias por las conversaciones,
+                            las partidas, los lives, las ocurrencias,
+                            las imitaciones cuestionables, los audios
+                            que empiezan con una historia y terminan
+                            en “se me olvidó”...
+                        </p>
+
+                        <p>
+                            y hasta por hacerme crear quién sabe
+                            cuántas cuentas para que Temu
+                            finalmente te diera exactamente
+                            <strong>$0.00. 😂</strong>
+                        </p>
+
+                        <p>
+                            Al final, todas esas cosas random
+                            terminaron convirtiéndose en recuerdos
+                            bastante chéveres.
+                        </p>
+
+                        <p>
+                            Espero que sigamos acumulando muchos más,
+                            porque aburrirme contigo está
+                            <strong>bastante complicado.</strong>
+                        </p>
+
+                        <p>
+                            Y aunque probablemente mañana vuelva
+                            a molestarte como siempre...
+                        </p>
+
+                        <p class="frase-final-carta">
+                            hoy sí te toca aceptar que eres
+                            una persona especial.
+                        </p>
+
+                        <p>
+                            Disfruta muchísimo tu día.
+                            Te mereces que te pasen cosas bonitas.
+                        </p>
+
+                    </div>
+
+                    <div class="firma-carta">
+
+                        <span>Feliz cumpleaños 🎂</span>
+
+                        <strong>— Marcos</strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FRENTE DEL SOBRE -->
+                <div class="sobre-frente">
+
+                    <span>Para Karelys</span>
+
+                    <div class="sello-corazon">
+                        ♥
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button id="abrirSobre">
+                💌 Abrir
+            </button>
+
+
+            <!-- FINAL -->
+            <div class="final-cumple" id="finalCumple">
+
+                <span>✦</span>
+
+                <h3>Feliz cumpleaños, Karelys</h3>
+
+                <p>
+                    Que los 3 MB de RAM te acompañen
+                    durante muchos años más. 🐔💗
+                </p>
+
+                <small>
+                    FIN DEL DOCUMENTAL
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONFETI -->
+        <div class="confeti-contenedor" id="confetiContenedor"></div>
+
+    </section>
+
+    <audio id="musicaFinal" src="feliz-cumpleanos.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+
+</body>
+
 </html>

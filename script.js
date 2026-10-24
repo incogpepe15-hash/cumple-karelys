@@ -1,199 +1,971 @@
-(() => {
-  "use strict";
+// ==========================================
+// CUENTA REGRESIVA - CUMPLEAÑOS DE KARELYS
+// 24 de octubre de 2026
+// ==========================================
 
-  const targetDate = new Date("2026-10-24T00:00:00").getTime();
-  const units = {
-    days: document.getElementById("days"),
-    hours: document.getElementById("hours"),
-    minutes: document.getElementById("minutes"),
-    seconds: document.getElementById("seconds"),
-  };
-  const waitingMessage = document.getElementById("waiting-message");
-  const birthdayMessage = document.getElementById("birthday-message");
-  const lockMessage = document.getElementById("lock-message");
-  const surpriseAccess = document.getElementById("surprise-access");
-  let timerId;
+const dias = document.getElementById("dias");
+const horas = document.getElementById("horas");
+const minutos = document.getElementById("minutos");
+const segundos = document.getElementById("segundos");
 
-  const format = (value) => String(value).padStart(2, "0");
+// Medianoche del 24 de octubre
+const cumpleKarelys = new Date("2026-10-24T00:00:00");
 
-  function showBirthdayState() {
-    Object.values(units).forEach((unit) => {
-      unit.textContent = "00";
-    });
-    waitingMessage.hidden = true;
-    birthdayMessage.hidden = false;
-    lockMessage.hidden = true;
-  }
+function actualizarContador() {
 
-  function updateCountdown() {
-    const remaining = Math.max(0, targetDate - Date.now());
+    const ahora = new Date();
+    const diferencia = cumpleKarelys - ahora;
 
-    if (remaining === 0) {
-      showBirthdayState();
-      window.clearInterval(timerId);
-      return false;
+    // Si ya llegó el cumpleaños
+    if (diferencia <= 0) {
+
+        dias.textContent = "00";
+        horas.textContent = "00";
+        minutos.textContent = "00";
+        segundos.textContent = "00";
+
+        return;
     }
 
-    const totalSeconds = Math.floor(remaining / 1000);
-    units.days.textContent = format(Math.floor(totalSeconds / 86400));
-    units.hours.textContent = format(Math.floor((totalSeconds % 86400) / 3600));
-    units.minutes.textContent = format(Math.floor((totalSeconds % 3600) / 60));
-    units.seconds.textContent = format(totalSeconds % 60);
-    return true;
-  }
-
-  if (updateCountdown()) {
-    timerId = window.setInterval(updateCountdown, 1000);
-  }
-
-  // Ecuador continental uses UTC-5. This fixed UTC instant cannot be moved by
-  // changing the clock or time zone of the visitor's device.
-  const releaseTimestamp = Date.parse("2026-10-24T05:00:00Z");
-  const serverTimeInterval = 60_000;
-  const signalInterval = 30_000;
-  const errorRetryInterval = 120_000;
-  let availabilityTimer;
-  let checkInProgress = false;
-  let trustedReleaseReached = false;
-  let surpriseAvailable = false;
-
-  const createNonce = () => Math.random().toString(36).slice(2);
-
-  function readServerTime(response) {
-    const serverDate = response.headers.get("Date");
-    const timestamp = serverDate ? Date.parse(serverDate) : Number.NaN;
-    return Number.isFinite(timestamp) ? timestamp : null;
-  }
-
-  function scheduleAvailabilityCheck(delay) {
-    window.clearTimeout(availabilityTimer);
-    if (!surpriseAvailable) {
-      availabilityTimer = window.setTimeout(checkSurpriseAvailability, delay);
-    }
-  }
-
-  async function requestTrustedServerTime() {
-    const timeUrl = new URL(window.location.href);
-    timeUrl.hash = "";
-    timeUrl.search = "";
-    timeUrl.searchParams.set("_hora", createNonce());
-
-    const response = await window.fetch(timeUrl, {
-      method: "HEAD",
-      cache: "no-store",
-    });
-
-    return readServerTime(response);
-  }
-
-  async function requestPublicationSignal() {
-    const signalUrl = new URL("./sorpresa-lista.json", window.location.href);
-    signalUrl.searchParams.set("_comprobar", createNonce());
-
-    const response = await window.fetch(signalUrl, {
-      cache: "no-store",
-      headers: { Accept: "application/json" },
-    });
-    const serverTime = readServerTime(response);
-
-    if (serverTime === null || serverTime < releaseTimestamp || !response.ok) {
-      return false;
-    }
-
-    const contentType = response.headers.get("Content-Type") || "";
-    if (!contentType.toLowerCase().includes("application/json")) {
-      return false;
-    }
-
-    const signal = await response.json();
-    return (
-      signal?.karelysSurprise === "sorpresa-completa-2026" &&
-      signal?.published === true
+    const diasRestantes = Math.floor(
+        diferencia / (1000 * 60 * 60 * 24)
     );
-  }
 
-  function openFreshSurprise() {
-    const freshUrl = new URL(window.location.href);
-    freshUrl.hash = "";
-    freshUrl.search = "";
-    freshUrl.searchParams.set("abrir", createNonce());
-    window.location.replace(freshUrl.href);
-  }
+    const horasRestantes = Math.floor(
+        (diferencia / (1000 * 60 * 60)) % 24
+    );
 
-  function showSurpriseAccess() {
-    if (surpriseAvailable) {
-      return;
-    }
+    const minutosRestantes = Math.floor(
+        (diferencia / (1000 * 60)) % 60
+    );
 
-    surpriseAvailable = true;
-    window.clearTimeout(availabilityTimer);
-    showBirthdayState();
+    const segundosRestantes = Math.floor(
+        (diferencia / 1000) % 60
+    );
 
-    const panel = document.createElement("div");
-    panel.className = "surprise-access__panel";
-    panel.setAttribute("role", "dialog");
-    panel.setAttribute("aria-modal", "true");
-    panel.setAttribute("aria-labelledby", "surprise-access-title");
+    dias.textContent = String(diasRestantes).padStart(2, "0");
+    horas.textContent = String(horasRestantes).padStart(2, "0");
+    minutos.textContent = String(minutosRestantes).padStart(2, "0");
+    segundos.textContent = String(segundosRestantes).padStart(2, "0");
+}
 
-    const sparkle = document.createElement("span");
-    sparkle.className = "surprise-access__sparkle";
-    sparkle.setAttribute("aria-hidden", "true");
-    sparkle.textContent = "✦ ✦ ✦";
+// Ejecutar inmediatamente
+actualizarContador();
 
-    const title = document.createElement("h2");
-    title.id = "surprise-access-title";
-    title.className = "surprise-access__title";
-    title.textContent = "Karelys, llegó tu momento 💗";
+// Actualizar cada segundo
+setInterval(actualizarContador, 1000);
+// ==========================================
+// ENTRAR A LA SORPRESA
+// ==========================================
 
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "surprise-access__button";
-    button.textContent = "🎁 Abrir mi sorpresa";
-    button.addEventListener("click", openFreshSurprise);
+const botonEntrar = document.getElementById("botonEntrar");
 
-    panel.append(sparkle, title, button);
-    surpriseAccess.replaceChildren(panel);
-    surpriseAccess.hidden = false;
+const portada = document.querySelector(".portada");
 
-    window.requestAnimationFrame(() => {
-      surpriseAccess.classList.add("is-visible");
-      button.focus({ preventScroll: true });
-    });
-  }
+const bienvenida = document.getElementById("bienvenida");
 
-  async function checkSurpriseAvailability() {
-    if (checkInProgress || surpriseAvailable) {
-      return;
-    }
+botonEntrar.addEventListener("click", () => {
 
-    checkInProgress = true;
-    let nextDelay = errorRetryInterval;
+    // Animación para despedir la portada
+    portada.classList.add("ocultar-portada");
 
-    try {
-      if (!trustedReleaseReached) {
-        const serverTime = await requestTrustedServerTime();
+    // Esperamos a que termine la animación
+    setTimeout(() => {
 
-        if (serverTime === null || serverTime < releaseTimestamp) {
-          nextDelay = serverTimeInterval;
-          return;
+        portada.style.display = "none";
+
+        bienvenida.classList.add("mostrar-bienvenida");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "instant"
+        });
+
+    }, 750);
+
+});
+// ==========================================
+// BIENVENIDA → CAPÍTULO 01
+// ==========================================
+
+const comenzarHistoria =
+    document.getElementById("comenzarHistoria");
+
+const capituloFreeFire =
+    document.getElementById("capituloFreeFire");
+
+comenzarHistoria.addEventListener("click", () => {
+
+    bienvenida.classList.add("ocultar-seccion");
+
+    setTimeout(() => {
+
+        bienvenida.style.display = "none";
+
+        capituloFreeFire.classList.add("mostrar-capitulo");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "instant"
+        });
+
+    }, 650);
+
+});
+// ==========================================
+// FREE FIRE → PRIMER WHATSAPP
+// ==========================================
+
+const continuarFreeFire =
+    document.getElementById("continuarFreeFire");
+
+const capituloWhatsApp =
+    document.getElementById("capituloWhatsApp");
+
+continuarFreeFire.addEventListener("click", () => {
+
+    capituloFreeFire.classList.add("ocultar-seccion");
+
+    setTimeout(() => {
+
+        capituloFreeFire.style.display = "none";
+
+        capituloWhatsApp.classList.add("mostrar-whatsapp");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "instant"
+        });
+
+    }, 650);
+
+});
+// ==========================================
+// WHATSAPP → CAPIBARA
+// ==========================================
+
+const continuarWhatsApp =
+    document.getElementById("continuarWhatsApp");
+
+const capituloCapibara =
+    document.getElementById("capituloCapibara");
+
+continuarWhatsApp.addEventListener("click", () => {
+
+    capituloWhatsApp.classList.add("ocultar-seccion");
+
+    setTimeout(() => {
+
+        capituloWhatsApp.style.display = "none";
+
+        capituloCapibara.classList.add("mostrar-capibara");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "instant"
+        });
+
+    }, 650);
+
+});
+
+
+// ==========================================
+// ENVIAR CAPIBARA 😂
+// ==========================================
+
+const enviarCapibara =
+    document.getElementById("enviarCapibara");
+
+const regaloCapibara =
+    document.getElementById("regaloCapibara");
+
+const investigacion =
+    document.getElementById("investigacion");
+
+const progresoCapibara =
+    document.getElementById("progresoCapibara");
+
+const porcentajeCapibara =
+    document.getElementById("porcentajeCapibara");
+
+const resultadoInvestigacion =
+    document.getElementById("resultadoInvestigacion");
+
+
+enviarCapibara.addEventListener("click", () => {
+
+    // Evitar enviarlo dos veces
+    enviarCapibara.disabled = true;
+
+    enviarCapibara.textContent = "🦫 Capibara enviado 😂";
+
+    regaloCapibara.style.transform = "scale(1.08)";
+
+    setTimeout(() => {
+        regaloCapibara.style.transform = "scale(1)";
+    }, 300);
+
+    investigacion.classList.add("activa");
+
+
+    let progreso = 0;
+
+    const carga = setInterval(() => {
+
+        progreso++;
+
+        progresoCapibara.style.width =
+            progreso + "%";
+
+        porcentajeCapibara.textContent =
+            progreso + "%";
+
+
+        if (progreso >= 100) {
+
+            clearInterval(carga);
+
+            setTimeout(() => {
+
+                resultadoInvestigacion
+                    .classList
+                    .add("visible");
+
+                resultadoInvestigacion
+                    .scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+            }, 500);
+
         }
 
-        trustedReleaseReached = true;
-      }
+    }, 25);
 
-      if (await requestPublicationSignal()) {
-        showSurpriseAccess();
-        return;
-      }
+});
+// ==========================================
+// CAPIBARA → TEMU
+// ==========================================
 
-      nextDelay = signalInterval;
-    } catch {
-      nextDelay = errorRetryInterval;
-    } finally {
-      checkInProgress = false;
-      scheduleAvailabilityCheck(nextDelay);
+const continuarCapibara =
+    document.getElementById("continuarCapibara");
+
+const capituloTemu =
+    document.getElementById("capituloTemu");
+
+
+continuarCapibara.addEventListener("click", () => {
+
+    capituloCapibara.classList.add("ocultar-seccion");
+
+    setTimeout(() => {
+
+        capituloCapibara.style.display = "none";
+
+        capituloTemu.classList.add("mostrar-temu");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "instant"
+        });
+
+    }, 650);
+
+});
+
+
+// ==========================================
+// LA ESTAFA ETERNA DE TEMU 😂
+// ==========================================
+
+const crearCuentaTemu =
+    document.getElementById("crearCuentaTemu");
+
+const porcentajeTemu =
+    document.getElementById("porcentajeTemu");
+
+const progresoTemu =
+    document.getElementById("progresoTemu");
+
+const mensajeTemu =
+    document.getElementById("mensajeTemu");
+
+const contadorCuentas =
+    document.getElementById("contadorCuentas");
+
+const balanceTemu =
+    document.getElementById("balanceTemu");
+
+const temuApp =
+    document.querySelector(".temu-app");
+
+
+let cuentasTemu = 0;
+
+const porcentajesTemu = [
+    "99.91%",
+    "99.95%",
+    "99.98%",
+    "99.99%"
+];
+
+
+crearCuentaTemu.addEventListener("click", () => {
+
+    cuentasTemu++;
+
+    contadorCuentas.textContent = cuentasTemu;
+
+
+    // Sacudir la aplicación
+    temuApp.classList.remove("temu-error");
+
+    void temuApp.offsetWidth;
+
+    temuApp.classList.add("temu-error");
+
+
+    // Cambiar porcentaje
+    const indice =
+        Math.min(
+            cuentasTemu - 1,
+            porcentajesTemu.length - 1
+        );
+
+    porcentajeTemu.textContent =
+        porcentajesTemu[indice];
+
+
+    // La barra se acerca...
+    // pero JAMÁS llega 😂
+    progresoTemu.style.width =
+        (99.9 + cuentasTemu * 0.02) + "%";
+
+
+    if (cuentasTemu === 1) {
+
+        mensajeTemu.innerHTML =
+            "🎉 ¡INCREÍBLE! Ahora solo te falta " +
+            "<strong>UNA persona más.</strong>";
+
+        crearCuentaTemu.textContent =
+            "💀 Crear OTRA cuenta";
+
     }
-  }
 
-  scheduleAvailabilityCheck(1_500);
-})();
+    else if (cuentasTemu === 2) {
+
+        mensajeTemu.innerHTML =
+            "🔥 ¡CASI! Estás demasiado cerca. " +
+            "<strong>Solo UNA más.</strong>";
+
+        crearCuentaTemu.textContent =
+            "😭 Karelys insiste: otra más";
+
+    }
+
+    else if (cuentasTemu === 3) {
+
+        mensajeTemu.innerHTML =
+            "🎁 ¡NO TE RINDAS! " +
+            "<strong>Te falta solamente una persona.</strong>";
+
+        crearCuentaTemu.textContent =
+            "🤡 Una última cuenta";
+
+    }
+
+    else if (cuentasTemu >= 4) {
+
+        porcentajeTemu.textContent = "99.99%";
+
+        progresoTemu.style.width = "99.99%";
+
+        mensajeTemu.innerHTML =
+            "🎉 ¡FELICIDADES! " +
+            "<strong>Ahora solo te falta UNA persona más.</strong>";
+
+        crearCuentaTemu.disabled = true;
+
+        crearCuentaTemu.textContent =
+            "💀 Se acabaron los correos de Marcos";
+
+        setTimeout(() => {
+
+            balanceTemu.classList.add("visible");
+
+            balanceTemu.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }, 800);
+
+    }
+
+});
+// ==========================================
+// TEMU → TALENTOS CUESTIONABLES
+// ==========================================
+
+const continuarTemu =
+    document.getElementById("continuarTemu");
+
+const capituloImitaciones =
+    document.getElementById("capituloImitaciones");
+
+
+continuarTemu.addEventListener("click", () => {
+
+    capituloTemu.classList.add("ocultar-seccion");
+
+    setTimeout(() => {
+
+        capituloTemu.style.display = "none";
+
+        capituloImitaciones
+            .classList
+            .add("mostrar-imitaciones");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "instant"
+        });
+
+    }, 650);
+
+});
+// ==========================================
+// IMITACIONES → FUERA DE BROMAS
+// ==========================================
+
+const continuarImitaciones =
+    document.getElementById("continuarImitaciones");
+
+const capituloAdmiro =
+    document.getElementById("capituloAdmiro");
+
+
+continuarImitaciones.addEventListener("click", () => {
+
+    capituloImitaciones
+        .classList
+        .add("ocultar-seccion");
+
+    setTimeout(() => {
+
+        capituloImitaciones.style.display = "none";
+
+        capituloAdmiro
+            .classList
+            .add("mostrar-admiro");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "auto"
+        });
+
+    }, 650);
+
+});
+// ==========================================
+// ADMIRACIÓN → MENTE DE POLLO
+// ==========================================
+
+const continuarAdmiro =
+    document.getElementById("continuarAdmiro");
+
+const capituloPollo =
+    document.getElementById("capituloPollo");
+
+
+continuarAdmiro.addEventListener("click", () => {
+
+    capituloAdmiro.classList.add("ocultar-seccion");
+
+    setTimeout(() => {
+
+        capituloAdmiro.style.display = "none";
+
+        capituloPollo.classList.add("mostrar-pollo");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "auto"
+        });
+
+    }, 650);
+
+});
+// ==========================================
+// ANÁLISIS DE LOS 3 MB DE RAM 😂
+// ==========================================
+
+const playAudioPollo =
+    document.getElementById("playAudioPollo");
+
+const textoAudioPollo =
+    document.getElementById("textoAudioPollo");
+
+const tiempoAudio =
+    document.getElementById("tiempoAudio");
+
+const ondaAudio =
+    document.querySelector(".onda-audio");
+
+const scannerPollo =
+    document.getElementById("scannerPollo");
+
+const progresoScanner =
+    document.getElementById("progresoScanner");
+
+const scannerPorcentaje =
+    document.getElementById("scannerPorcentaje");
+
+const diagnosticoPollo =
+    document.getElementById("diagnosticoPollo");
+
+
+let audioAnalizado = false;
+
+
+playAudioPollo.addEventListener("click", () => {
+
+    if (audioAnalizado) return;
+
+    audioAnalizado = true;
+
+    playAudioPollo.textContent = "⏸";
+
+    ondaAudio.classList.add("audio-reproduciendo");
+
+
+    // Karelys empieza perfectamente 😂
+
+    setTimeout(() => {
+
+        tiempoAudio.textContent = "0:02";
+
+        textoAudioPollo.textContent =
+            "“Marcos, te iba a contar que hoy estaba...”";
+
+    }, 500);
+
+
+    // Empieza a fallar la RAM
+
+    setTimeout(() => {
+
+        tiempoAudio.textContent = "0:05";
+
+        textoAudioPollo.textContent =
+            "“...espera...”";
+
+    }, 1800);
+
+
+    setTimeout(() => {
+
+        tiempoAudio.textContent = "0:07";
+
+        textoAudioPollo.textContent =
+            "“¿Qué te iba a decir?”";
+
+    }, 3000);
+
+
+    // Colapso total 😂
+
+    setTimeout(() => {
+
+        tiempoAudio.textContent = "0:09";
+
+        textoAudioPollo.innerHTML =
+            "“Ay, se me olvidó JAJAJA.” 🐔";
+
+        playAudioPollo.textContent = "▶";
+
+        ondaAudio.classList.remove(
+            "audio-reproduciendo"
+        );
+
+
+        scannerPollo.classList.add("visible");
+
+        iniciarScannerPollo();
+
+    }, 4300);
+
+});
+
+
+function iniciarScannerPollo() {
+
+    let progreso = 0;
+
+    const analizar = setInterval(() => {
+
+        progreso++;
+
+        progresoScanner.style.width =
+            progreso + "%";
+
+        scannerPorcentaje.textContent =
+            progreso + "%";
+
+
+        if (progreso >= 100) {
+
+            clearInterval(analizar);
+
+            setTimeout(() => {
+
+                diagnosticoPollo
+                    .classList
+                    .add("visible");
+
+                diagnosticoPollo
+                    .scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+            }, 400);
+
+        }
+
+    }, 20);
+
+}
+// ==========================================
+// MENTE DE POLLO → EL HEREDERO
+// ==========================================
+
+const continuarPollo =
+    document.getElementById("continuarPollo");
+
+const capituloPerrito =
+    document.getElementById("capituloPerrito");
+
+
+continuarPollo.addEventListener("click", () => {
+
+    capituloPollo.classList.add("ocultar-seccion");
+
+    setTimeout(() => {
+
+        capituloPollo.style.display = "none";
+
+        capituloPerrito
+            .classList
+            .add("mostrar-perrito");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "auto"
+        });
+
+    }, 650);
+
+});
+// ==========================================
+// INVESTIGACIÓN: MADRE DEL AÑO 😂
+// ==========================================
+
+const verReaccionKarelys =
+    document.getElementById("verReaccionKarelys");
+
+const reaccionKarelys =
+    document.getElementById("reaccionKarelys");
+
+const veredictoPerrito =
+    document.getElementById("veredictoPerrito");
+
+
+verReaccionKarelys.addEventListener("click", () => {
+
+    verReaccionKarelys.disabled = true;
+
+    verReaccionKarelys.textContent =
+        "Analizando reacción... 🧐";
+
+
+    setTimeout(() => {
+
+        reaccionKarelys
+            .classList
+            .add("visible");
+
+        verReaccionKarelys.textContent =
+            "Caso confirmado 😂";
+
+
+        setTimeout(() => {
+
+            veredictoPerrito
+                .classList
+                .add("visible");
+
+            veredictoPerrito
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+        }, 1200);
+
+    }, 700);
+
+});
+// ==========================================
+// EL HEREDERO → SOLO ES KARELYS
+// ==========================================
+
+const continuarPerrito =
+    document.getElementById("continuarPerrito");
+
+const capituloKarelys =
+    document.getElementById("capituloKarelys");
+
+
+continuarPerrito.addEventListener("click", () => {
+
+    capituloPerrito.classList.add("ocultar-seccion");
+
+    setTimeout(() => {
+
+        capituloPerrito.style.display = "none";
+
+        capituloKarelys
+            .classList
+            .add("mostrar-karelys");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "auto"
+        });
+
+    }, 650);
+
+});
+// ==========================================
+// SOLO ES KARELYS → CARTA FINAL
+// ==========================================
+
+const abrirCarta =
+    document.getElementById("abrirCarta");
+
+const capituloCarta =
+    document.getElementById("capituloCarta");
+
+
+abrirCarta.addEventListener("click", () => {
+
+    capituloKarelys
+        .classList
+        .add("ocultar-seccion");
+
+    setTimeout(() => {
+
+        capituloKarelys.style.display = "none";
+
+        capituloCarta
+            .classList
+            .add("mostrar-carta");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "auto"
+        });
+
+    }, 650);
+
+});
+// ==========================================
+// ABRIR SOBRE 💌
+// ==========================================
+
+const abrirSobre =
+    document.getElementById("abrirSobre");
+
+const sobre =
+    document.getElementById("sobre");
+
+const finalCumple =
+    document.getElementById("finalCumple");
+
+const confetiContenedor =
+    document.getElementById("confetiContenedor");
+
+const musicaFinal =
+    document.getElementById("musicaFinal");
+
+
+let cartaAbierta = false;
+let musicaFinalIniciada = false;
+let animacionFadeMusicaFinal = null;
+
+const volumenMusicaFinal = 0.45;
+const duracionFadeMusicaFinal = 3;
+
+
+function aplicarFadeMusicaFinal() {
+
+    const tiempoRestante =
+        musicaFinal.duration - musicaFinal.currentTime;
+
+    const progresoFade = Math.max(
+        0,
+        Math.min(
+            1,
+            tiempoRestante / duracionFadeMusicaFinal
+        )
+    );
+
+    musicaFinal.volume =
+        volumenMusicaFinal * progresoFade;
+
+    if (!musicaFinal.ended && tiempoRestante > 0) {
+
+        animacionFadeMusicaFinal =
+            requestAnimationFrame(aplicarFadeMusicaFinal);
+
+    } else {
+
+        animacionFadeMusicaFinal = null;
+
+    }
+
+}
+
+
+function iniciarMusicaFinal() {
+
+    if (musicaFinalIniciada) return;
+
+    musicaFinalIniciada = true;
+    musicaFinal.volume = volumenMusicaFinal;
+    musicaFinal.loop = false;
+
+    musicaFinal.play().catch((error) => {
+
+        console.error(
+            "No se pudo reproducir la música final:",
+            error
+        );
+
+    });
+
+}
+
+
+musicaFinal.addEventListener("timeupdate", () => {
+
+    const tiempoRestante =
+        musicaFinal.duration - musicaFinal.currentTime;
+
+    if (
+        tiempoRestante <= duracionFadeMusicaFinal &&
+        animacionFadeMusicaFinal === null
+    ) {
+
+        aplicarFadeMusicaFinal();
+
+    }
+
+});
+
+
+abrirSobre.addEventListener("click", () => {
+
+    if (cartaAbierta) return;
+
+    cartaAbierta = true;
+
+    abrirSobre.classList.add("oculto");
+
+    sobre.classList.add("abierto");
+
+
+    // Música y primer confeti al abrir
+    iniciarMusicaFinal();
+
+    crearConfeti(60);
+
+
+    // Mostrar final después de abrir la carta
+    setTimeout(() => {
+
+        finalCumple
+            .classList
+            .add("visible");
+
+    }, 1800);
+
+});
+// ==========================================
+// CONFETI 🎉
+// ==========================================
+
+function crearConfeti(cantidad) {
+
+    const formas = [
+        "■",
+        "●",
+        "♥",
+        "✦"
+    ];
+
+    for (let i = 0; i < cantidad; i++) {
+
+        const confeti =
+            document.createElement("span");
+
+        confeti.classList.add("confeti");
+
+        confeti.textContent =
+            formas[
+            Math.floor(
+                Math.random() * formas.length
+            )
+            ];
+
+        confeti.style.left =
+            Math.random() * 100 + "vw";
+
+        confeti.style.fontSize =
+            (8 + Math.random() * 12) + "px";
+
+        confeti.style.color =
+            [
+                "#ff5ca8",
+                "#ff91c2",
+                "#a86cff",
+                "#ffd76a",
+                "#ffffff"
+            ][
+            Math.floor(Math.random() * 5)
+            ];
+
+        confeti.style.animationDuration =
+            (3 + Math.random() * 3) + "s";
+
+        confeti.style.animationDelay =
+            (Math.random() * .8) + "s";
+
+
+        confetiContenedor
+            .appendChild(confeti);
+
+
+        setTimeout(() => {
+
+            confeti.remove();
+
+        }, 7000);
+
+    }
+
+}
